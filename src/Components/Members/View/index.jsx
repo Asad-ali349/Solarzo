@@ -7,12 +7,12 @@ import DataTableComponent from './DataTableComponent';
 const DataTables = () => {
   return (
     <Fragment>
-    <Breadcrumbs mainTitle="Today's Pick" parent="View Today's Pick"  />
+    <Breadcrumbs mainTitle="Users" parent="Users"  />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
             <Card>
-              <HeaderCard title="View Today's Pick" />
+              <HeaderCard title="Users" />
               <CardBody>
                 <DataTableComponent />
               </CardBody>

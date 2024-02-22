@@ -17,6 +17,8 @@ import AddUser from '../Components/Members/Add';
 import EditProfile from '../Components/UsersProfile/EditProfile/index.jsx';
 import ChangePassword from '../Components/changePassword/index.jsx'
 import PageNotFound from '../Auth/PageNotFound/index.jsx';
+import ViewInventry from '../Components/Inventry/ViewInventry.js';
+import AddInventory from '../Components/Inventry/Add/AddInventory.js';
 
 // setup fake backend
 
@@ -32,6 +34,8 @@ const Routers = () => {
           <Fragment >
             <Route element={<AppLayout />} >
               <Route path={'/dashboard'} element={<Dashboard/>} />
+              <Route path={'/inventry'} element={<ViewInventry/>} />
+              <Route path={'/inventory/add'} element={<AddInventory/>} />
               <Route path={'/users'} element={<Users/>} />
               <Route path={'/users/add'} element={<AddUser/>} />
               <Route path={'/profile'} element={<UsersProfileContain/>} />

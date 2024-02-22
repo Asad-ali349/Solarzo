@@ -13,8 +13,8 @@ import OtherWay from './OtherWay'
 
 const Signin = ({ selected }) => {
   
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("123456789");
   const [togglePassword, setTogglePassword] = useState(false);
   const history = useNavigate();
 

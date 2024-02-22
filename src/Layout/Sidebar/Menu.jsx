@@ -5,6 +5,8 @@ export const MENUITEMS = [
     Items: [
 
          { path: '/dashboard', icon: "icofont-home", id:'dashboard',title: "Dashboard", type: "link" },
+         { path: '/inventry', icon: "icofont-vehicle-delivery-van", id:'inventry',title: "Inventory", type: "link" },
+         { path: '/assign_inventry', icon: "icofont-tick-boxed", id:'assign_inventry',title: "Assign Inventory", type: "link" },
     ],
   },
     {

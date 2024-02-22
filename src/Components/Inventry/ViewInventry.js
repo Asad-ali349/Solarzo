@@ -1,19 +1,19 @@
 import React, { Fragment } from 'react';
 import { Container, Row, Col, Card, CardBody } from 'reactstrap';
-import { Breadcrumbs } from '../../../AbstractElements';
-import HeaderCard from '../../Common/Component/HeaderCard';
+import { Breadcrumbs } from '../../AbstractElements';
+import HeaderCard from '../Common/Component/HeaderCard';
 import DataTableComponent from './DataTableComponent';
 
-const DataTables = () => {
+const ViewInventry = () => {
   
   return (
     <Fragment>
-    <Breadcrumbs mainTitle="Users" parent="Users"  />
+    <Breadcrumbs mainTitle="Inventory" parent="Inventory"  />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
             <Card>
-              <HeaderCard title="Users" />
+              <HeaderCard title="Inventory" />
               <CardBody>
                 <DataTableComponent />
               </CardBody>
@@ -26,4 +26,4 @@ const DataTables = () => {
 
 };
 
-export default DataTables;
+export default ViewInventry;

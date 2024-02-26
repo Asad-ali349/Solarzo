@@ -50,9 +50,11 @@ const BasicFormControlClass = () => {
 
         onSubmit: async (values) => {
             console.log('submit')
+
             dynamicFields.forEach((item)=>{ 
                 values[item.name]=item.value
             })
+
             setDynamicFields([])
             formik.resetForm()
             console.log(values)
@@ -61,7 +63,9 @@ const BasicFormControlClass = () => {
     return (
         <Fragment>
             <Card>
-                <CardHeader > <H5> Add New Inventory</H5>   </CardHeader>
+                <CardHeader>
+                    <H5>New Inventory</H5>
+                </CardHeader>
                 <Form className="form theme-form" onSubmit={formik.handleSubmit} method='post'>
                     <CardBody>
                         <Row className='mb-3'>
@@ -86,7 +90,7 @@ const BasicFormControlClass = () => {
                                 </Col>
                             ))}
                             <Col md={12}>
-                                <button className='btn btn-warning' style={{ float: 'right' }} onClick={handleAddMoreField} type='button'>Add Field</button>
+                                <button className='btn btn-dark' style={{ float: 'right' }} onClick={handleAddMoreField} type='button'>Add Field</button>
                             </Col>
                             {dynamicFields.map((field, index) => (
                                 <Fragment key={index}>

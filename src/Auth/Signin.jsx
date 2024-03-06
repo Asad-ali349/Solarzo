@@ -10,6 +10,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Image } from '../AbstractElements';
 import OtherWay from './OtherWay'
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../Redux/Slices/authSlice";
 
 const Signin = ({ selected }) => {
   
@@ -17,10 +19,15 @@ const Signin = ({ selected }) => {
   const [password, setPassword] = useState("123456789");
   const [togglePassword, setTogglePassword] = useState(false);
   const history = useNavigate();
+  const dispatch=useDispatch();
+  const {loading} = useSelector(state=>state.auth)
 
   const loginAuth = async (e) => {
     e.preventDefault();
-    history('dashboard')
+    console.log(email,password)
+    let res=await dispatch(login({email,password}));
+    if(res.payload && res.payload.token)
+      history('dashboard')
   };
 
   return (
@@ -52,9 +59,9 @@ const Signin = ({ selected }) => {
                     <Link className="forgot_link mb-3" to="/forgot_password" style={{float:'right'}}>
                       {ForgotPassword}
                     </Link>
-                    <button className="btn btn-primary w-100"  >{SignIn}</button>
+                    <button className="btn btn-primary w-100"  disabled={loading}>{loading?'Signing In...':SignIn }</button>
                   </div>
-                  <OtherWay/>
+                  {/* <OtherWay/> */}
                 </Form>
               </div>
             </div>

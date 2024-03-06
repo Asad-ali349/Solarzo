@@ -5,11 +5,20 @@ import {CardHeader,CardFooter} from 'reactstrap';
 import { Data } from './Data';
 import * as yup from 'yup';
 import { useFormik } from 'formik' ;
-
+import {useDispatch,useSelector} from 'react-redux';
+import {fetchProfile, updateProfile} from '../../../Redux/Slices/authSlice.js'
 
 const BasicFormControlClass = () => {
-   
+    const {loading,profile}=useSelector(state=>state.auth);
+    const dispatch=useDispatch()
 
+    useEffect(()=>{
+      dispatch(fetchProfile());
+    },[])
+    useEffect(()=>{
+        formik.setValues({...profile,profile_image:""})
+    },[profile])
+    
     const validationSchema = yup.object({
         name: yup.string().required().min(2),
         email: yup.string().required('Please enter your email').email(),
@@ -33,7 +42,8 @@ const BasicFormControlClass = () => {
         validationSchema: validationSchema,
      
         onSubmit: async (values) => {
-            console.log(values)
+            console.log('submit')
+            dispatch(updateProfile(values));
         },
        });
     return (
@@ -70,8 +80,8 @@ const BasicFormControlClass = () => {
                       
                     </CardBody>
                     <CardFooter className="text-end">
-                        <button className='btn btn-primary mx-1' type='submit'>{'Update'}</button>
-                        <button className='btn btn-primary mx-1' type='button' onClick={()=>formik.resetForm()}>Cancel</button>
+                        <button className='btn btn-primary mx-1' disabled={loading} type='submit'>{loading?'Updating...':'Update'}</button>
+                        <button className='btn btn-primary mx-1' type='button' disabled={loading} onClick={()=>formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>
             </Card>

@@ -8,18 +8,22 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AddTeam } from '../../../Redux/Slices/teamSlice';
 
 const BasicFormControlClass = () => {
     const navigate=useNavigate();
-    const [loading,setLoading]=useState(false);
+    const {loading}=useSelector(state=>state.team);
+    const dispatch=useDispatch();
+
     const validationSchema = yup.object({
-        name: yup.string('Only Alphabets are allowed').required('Veuillez entrer un nom').min(2,'Le nom doit comporter au moins 2 caractères').typeError('Seuls les alphabets sont autorisés'),
-        email: yup.string().required('Veuillez entrer votre email').email().typeError('Seuls les alphabets sont autorisés'),
-        password : yup.string().required('Veuillez entrer le mot de passe').typeError('Seuls les alphabets sont autorisés').min(8,"La longueur du mot de passe doit être supérieure à 7"),
-        phone : yup.string().required('Veuillez entrer le téléphone').typeError('Seuls les alphabets sont autorisés'),
-        street : yup.string().typeError('Seuls les alphabets sont autorisés'),
-        city: yup.string().typeError('Seuls les alphabets sont autorisés'),
-        zip: yup.string().typeError('Seuls les alphabets sont autorisés'),
+        name: yup.string('Only Alphabets are allowed').required().min(3,'name must have 3 or more characters'),
+        email: yup.string().required().email(),
+        password : yup.string().required().min(8,"password length must be greater than 7"),
+        phone : yup.string().required(),
+        street : yup.string(),
+        city: yup.string(),
+        zip: yup.string(),
     });
 
     const formik = useFormik({
@@ -32,19 +36,20 @@ const BasicFormControlClass = () => {
             city:'',
             zip:'',  
             profile_image: null,
-            role:"member"
+            role:"team"
         },
         validationSchema: validationSchema,
      
         onSubmit: async (values) => {
                 console.log('submit')
-                console.log(values)
+                dispatch(AddTeam(values));
+                formik.resetForm()
             },
        });
     return (
         <Fragment>
             <Card>
-            <CardHeader > <H5> Add New User</H5>   </CardHeader>
+            <CardHeader > <H5> Add New Team</H5>   </CardHeader>
                 <Form className="form theme-form" onSubmit={formik.handleSubmit} method='post'>
                     <CardBody>
                         <Row className='mb-3'>
@@ -74,7 +79,7 @@ const BasicFormControlClass = () => {
                       
                     </CardBody>
                     <CardFooter className="text-end">
-                        <button className='btn btn-primary mx-1' type='submit'>{'Add User'}</button>
+                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Adding...':'Add Team'}</button>
                         <button className='btn btn-primary mx-1' type='button' onClick={()=>formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>

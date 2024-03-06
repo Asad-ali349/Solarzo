@@ -1,24 +1,47 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Col, Card, CardHeader, Row } from 'reactstrap';
-import { H6, Image,} from '../../../src/AbstractElements';
-import { ContactUs,  Email, Location } from '../../Constant';
-import { useNavigate } from 'react-router';
+import CountUp from 'react-countup';
+import { H6, Image, LI, UL } from '../../../src/AbstractElements';
+import { BOD, ContactUs, ContactUsNumber, DDMMYY, Designer, Email, Follower, Following, LocationDetails, MarekjecnoMailId, MarkJecno, Location } from '../../Constant';
+import { useNavigate, useNavigation } from 'react-router';
+import {useSelector,useDispatch} from 'react-redux';
+import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css';
+import { fetchProfile } from '../../Redux/Slices/authSlice';
 
 const UserProfile = () => {
-
+  const {loading,profile}=useSelector(state=>state.auth);
   const [url, setUrl] = useState('');
   const navigate=useNavigate();
-  
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchProfile());
+  },[])
   return (
     <Fragment>
-      
+       {Object.keys(profile).length === 0 ? (
+        <>
+         <Skeleton  height={350} style={{borderRadius:'8px'}}/>
+         <Skeleton  height={80}/>
+        </>
+       ):(
         <Col sm='12'>
            <Card className='hovercard text-center'>
              <CardHeader className='cardheader'></CardHeader>
              <div className='user-image'>
                <div className='avatar'>
-                  <Image attrImage={{ className: 'step1', alt: '', src: `${url ? url : require('../../assets/images/user/sample.png')}` }} />  
+                  {
+                    profile.profile_image && profile.profile_image.url ? (
+                      <Image
+                        attrImage={{ className: 'step1', alt: '', src: `${profile.profile_image.url}` }}
+                      />
+                    ) : (
+                      <Image
+                        attrImage={{ className: 'step1', alt: '', src: `${url ? url : require('../../assets/images/user/sample.png')}` }}
+                      />
+                    )
+                  }
                </div>
                <div className='icon-wrapper step2' onClick={() => navigate("/edit_profile")}>
                  <i className='icofont icofont-pencil-alt-5' >
@@ -35,7 +58,7 @@ const UserProfile = () => {
                          <H6>
                            <i className='fa fa-envelope me-2'></i> {Email}
                          </H6>
-                         <span>{"abc@gmail.com"}</span>
+                         <span>{profile.email}</span>
                        </div>
                      </Col>
                      <Col md='6'>
@@ -44,7 +67,7 @@ const UserProfile = () => {
                            <i className='fa fa-phone me-2'></i>
                            {ContactUs}
                          </H6>
-                         <span>{'1234567899'}</span>
+                         <span>{profile.phone}</span>
                        </div>
                      </Col>
                    </Row>
@@ -53,7 +76,7 @@ const UserProfile = () => {
                    <div className='user-designation'>
                      <div className='title'>
                        <a target='_blank' href='#javascript'>
-                         {'John'}
+                         {profile.name}
                        </a>
                      </div>
                      
@@ -67,7 +90,7 @@ const UserProfile = () => {
                            <i className='fa fa-location-arrow me-2'></i>
                            {Location}
                          </H6>
-                         <span>{'strret,city,state'}</span>
+                         <span>{profile.street}{profile.city?','+profile.city:''}{profile.state?','+profile.state:''}{profile.country?','+profile.country:''}</span>
                        </div>
                      </Col>
                      <Col md='6'>
@@ -76,7 +99,7 @@ const UserProfile = () => {
                            <i className='fa fa-phone me-2'></i>
                            {ContactUs}
                          </H6>
-                         <span>{'12345'}</span>
+                         <span>{profile.zip}</span>
                        </div>
                      </Col>
                      
@@ -89,7 +112,7 @@ const UserProfile = () => {
            </Card>
         </Col> 
 
-      
+       )} 
     </Fragment>
   );
 };

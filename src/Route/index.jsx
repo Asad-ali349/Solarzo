@@ -19,6 +19,7 @@ import ChangePassword from '../Components/changePassword/index.jsx'
 import PageNotFound from '../Auth/PageNotFound/index.jsx';
 import ViewInventry from '../Components/Inventry/ViewInventry.js';
 import AddInventory from '../Components/Inventry/Add/AddInventory.js';
+import ResetPassword from '../Auth/resetPassword/index.jsx';
 
 // setup fake backend
 
@@ -31,6 +32,7 @@ const Routers = () => {
           <Route path="*" element={<PageNotFound/>} />
           <Route path={'/'} element={<Signin/>} />
           <Route path={'/forgot_password'} element={<ForgotPassword/>} />
+          <Route path={'/reset_password/:token'} element={<ResetPassword/>} />
           <Fragment >
             <Route element={<AppLayout />} >
               <Route path={'/dashboard'} element={<Dashboard/>} />

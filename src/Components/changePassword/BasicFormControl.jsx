@@ -1,14 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import { H5 ,Btn} from '../../AbstractElements'
 import {CardHeader,CardFooter} from 'reactstrap';
+// import FooterCard from '../Common/FooterCard';
 import { Data } from './Data';
 import * as yup from 'yup';
 import { useFormik } from 'formik' ;
-
+// import { POSTFILE } from '../../../api/Axios';
+import { toast } from 'react-toastify';
+import {useSelector,useDispatch} from 'react-redux';
+import { changePassword } from '../../Redux/Slices/authSlice';
 
 const BasicFormControlClass = () => {
-    
+    const {loading}=useSelector(state=>state.auth);
+    const dispatch=useDispatch()
     const validationSchema = yup.object({
         old_password: yup.string().required().min(8),
         new_password: yup.string().required().min(8),
@@ -24,8 +29,10 @@ const BasicFormControlClass = () => {
         validationSchema: validationSchema,
      
         onSubmit: async (values) => {
-                console.log(values);
-            
+                dispatch(changePassword(values)).then(()=>{
+                    formik.resetForm();
+                });
+                // formik.resetForm();
             },
        });
     return (
@@ -62,8 +69,8 @@ const BasicFormControlClass = () => {
                       
                     </CardBody>
                     <CardFooter className="text-end">
-                        <button className='btn btn-primary mx-1' type='submit'>{'Update'}</button>
-                        <button className='btn btn-primary mx-1' type='button' onClick={()=>formik.resetForm()}>Cancel</button>
+                        <button className='btn btn-primary mx-1' disabled={loading} type='submit'>{loading?'Updating...':'Update'}</button>
+                        <button className='btn btn-primary mx-1' type='button' disabled={loading} onClick={()=>formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>
             </Card>

@@ -8,12 +8,12 @@ const DataTables = () => {
   
   return (
     <Fragment>
-    <Breadcrumbs mainTitle="Users" parent="Users"  />
+    <Breadcrumbs mainTitle="Teams" parent="Teams"  />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
             <Card>
-              <HeaderCard title="Users" />
+              <HeaderCard title="Teams" />
               <CardBody>
                 <DataTableComponent />
               </CardBody>

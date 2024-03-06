@@ -6,41 +6,41 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from 'reactstrap';
 
 import { MdDelete } from "react-icons/md";
+import { deleteTeam, getTeam } from '../../../Redux/Slices/teamSlice';
 
 
 const DataTableComponent = () => {
-   
-   const users=[{
-    _id:'1',
-    name:'john',
-    email:'example@gmail.com',
-    phone:'1234567878',
-    address:'street,address,city'
-   }]
+    const {teams,loading}=useSelector(state=>state.team);
+    const dispatch = useDispatch();
     const navigate=useNavigate();
-
-
-    const usersData = users.map((item, index) => ({
+ 
+    const usersData = teams.map((item, index) => ({
         id: index,
         Name: item.name,
         Email:item.email,
         Phone: item.phone,
-        Address: item.address,
-        Action: <MdDelete style={{fontSize:'20px',color:'red',cursor:'pointer'}} />
+        Address: item.street+item.city??','+item.city,
+        Action: <MdDelete style={{fontSize:'20px',color:'red',cursor:'pointer'}}  onClick={async ()=>{
+            await dispatch(deleteTeam(item._id)) 
+            await dispatch(getTeam())
+        }}/>
     }));
-
+    
+    useEffect(()=>{
+        dispatch(getTeam())
+    },[]);
 
     return (
         <Fragment>
             
-            {/* {loading ? (
+            {loading ? (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Spinner animation="border" size="sm" />
                 </div>
-            ) : ( */}
+            ) : (
 
                 <>
-                <button className='btn btn-primary' style={{float:'right', marginBottom:'30px'}} onClick={()=>navigate('/users/add')}>Add New User</button>
+                <button className='btn btn-primary' style={{float:'right', marginBottom:'30px'}} onClick={()=>navigate('/users/add')}>Add New Team</button>
                 <DataTable
                     data={usersData}
                     columns={tableColumns}
@@ -50,7 +50,7 @@ const DataTableComponent = () => {
                     />
                 
                 </>
-            {/* )}  */}
+            )} 
         </Fragment>
     )
 }

@@ -32,7 +32,9 @@ app.use('/static',express.static('public'))
 
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://solarzo.vercel.app'
+}));
 
 //Defining Port on which our page is load.
 const PORT = process.env.PORT || 5000;

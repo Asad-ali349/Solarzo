@@ -4,16 +4,16 @@ import { Breadcrumbs } from '../../AbstractElements';
 import HeaderCard from '../Common/Component/HeaderCard';
 import DataTableComponent from './DataTableComponent';
 
-const ViewInventry = () => {
+const ViewStock = () => {
   
   return (
     <Fragment>
-    <Breadcrumbs mainTitle="Inventory" parent="Inventory"  />
+    <Breadcrumbs mainTitle="Stocks" parent="Stocks"  />
       <Container fluid={true}>
         <Row>
           <Col sm="12">
             <Card>
-              <HeaderCard title="Inventory" />
+              <HeaderCard title="Stocks" />
               <CardBody>
                 <DataTableComponent />
               </CardBody>
@@ -26,4 +26,4 @@ const ViewInventry = () => {
 
 };
 
-export default ViewInventry;
+export default ViewStock;

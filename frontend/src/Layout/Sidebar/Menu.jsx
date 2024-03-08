@@ -3,10 +3,9 @@ export const MENUITEMS = [
     menutitle: "General",
     menucontent: "Dashboards,Widgets",
     Items: [
-
          { path: '/dashboard', icon: "icofont-home", id:'dashboard',title: "Dashboard", type: "link" },
-         { path: '/inventry', icon: "icofont-vehicle-delivery-van", id:'inventry',title: "Inventory", type: "link" },
-         { path: '/assign_inventry', icon: "icofont-tick-boxed", id:'assign_inventry',title: "Assign Inventory", type: "link" },
+         { path: '/stock', icon: "icofont-notepad", id:'stock',title: "Stocks", type: "link" },
+         { path: '/inventory', icon: "icofont-box", id:'inventory',title: "Inventory", type: "link" },
     ],
   },
     {

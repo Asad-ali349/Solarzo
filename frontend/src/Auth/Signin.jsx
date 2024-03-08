@@ -15,8 +15,8 @@ import { login } from "../Redux/Slices/authSlice";
 
 const Signin = ({ selected }) => {
   
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("123456789");
+  const [email, setEmail] = useState("asadking066@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const [togglePassword, setTogglePassword] = useState(false);
   const history = useNavigate();
   const dispatch=useDispatch();

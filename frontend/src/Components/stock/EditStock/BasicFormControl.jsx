@@ -9,12 +9,15 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AddStock } from '../../../Redux/Slices/stockSlice';
 
 const BasicFormControlClass = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
     const [dynamicFields, setDynamicFields] = useState([
     ])
+    const dispatch=useDispatch();
+    const {loading}=useSelector(state=>state.stock);
 
     const handleAddMoreField = () => {
         setDynamicFields([...dynamicFields, {
@@ -49,22 +52,20 @@ const BasicFormControlClass = () => {
         validationSchema: validationSchema,
 
         onSubmit: async (values) => {
-            console.log('submit')
-
             dynamicFields.forEach((item)=>{ 
                 values[item.name]=item.value
             })
-
-            setDynamicFields([])
+            
+            setDynamicFields([]);
+            dispatch(AddStock(values));
             formik.resetForm()
-            console.log(values)
         },
     });
     return (
         <Fragment>
             <Card>
                 <CardHeader>
-                    <H5>New Inventory</H5>
+                    <H5>Edit Stock</H5>
                 </CardHeader>
                 <Form className="form theme-form" onSubmit={formik.handleSubmit} method='post'>
                     <CardBody>
@@ -126,8 +127,7 @@ const BasicFormControlClass = () => {
                         </Row>
                     </CardBody>
                     <CardFooter className="text-end">
-                    <button className='btn btn-primary mx-1' type='submit'>{'Add Inventory'}</button>
-
+                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Updating...':'Update Inventory'}</button>
                         <button className='btn btn-primary mx-1' type='button' onClick={() => formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>

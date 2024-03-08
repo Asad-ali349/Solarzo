@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 //routes importing
 import authRouter from "./routes/auth.js";
 import userRouter from "./routes/users.js";
+import stockRouter from "./routes/stock.js";
 
 import cloudinary from 'cloudinary';
 dotenv.config();
@@ -33,7 +34,7 @@ app.use('/static',express.static('public'))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cors({
-  origin: 'https://solarzo.vercel.app'
+  origin: '*'
 }));
 
 //Defining Port on which our page is load.
@@ -41,6 +42,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/stock", stockRouter);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to Solarzo App API</h1>");

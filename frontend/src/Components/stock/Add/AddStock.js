@@ -3,10 +3,10 @@ import { Container, Row, Col } from 'reactstrap';
 import { Breadcrumbs } from '../../../AbstractElements'
 import BasicFormControlClass from './BasicFormControl';
 
-export default function AddInventory() {
+export default function AddStocks() {
     return (
         <Fragment>
-          <Breadcrumbs mainTitle='Inventory' parent='Inventory' subParent='Add New Inventory' />
+          <Breadcrumbs mainTitle='Stocks' parent='Stocks' subParent='Add New Stock' />
           <Container fluid={true}>
             <Row>
               <Col sm='12'>

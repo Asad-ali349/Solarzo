@@ -51,7 +51,7 @@ const Leftbar = () => {
     <Fragment>
       <Col className="header-logo-wrapper col-auto p-0" id="out_side_click">
         <div className="logo-wrapper">
-          <Link to={`${process.env.PUBLIC_URL}/dashboard/default/${layoutURL}`}>
+          <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
             <Image
               attrImage={{
                 className: "img-fluid for-light",
@@ -72,7 +72,7 @@ const Leftbar = () => {
           <AlignCenter className="status_toggle middle sidebar-toggle" id="sidebar-toggle" />
         </div>
       </Col>
-      <Col xxl="5" xl="6" lg="5" md="4" sm="3" className="left-header p-0" style={window.innerWidth <= 991 ? { display: "block" } : { display: "none" }}>
+      <Col  className="header-logo-wrapper col-auto p-0" style={window.innerWidth <= 991 ? { display: "block" } : { display: "none" }}>
         <h3 style={{paddingTop:'5px'}}>SOLARZO</h3>
       </Col>
     </Fragment>

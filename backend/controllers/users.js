@@ -5,6 +5,7 @@ import cloudinary from 'cloudinary';
 import fs from 'fs';
 import SendEmail from '../Helper/email.js';
 import mongoose from "mongoose";
+import assignedStockModel from "../models/assignedStocks.js";
 
 
 cloudinary.config({
@@ -116,8 +117,9 @@ export const GetUserDetail=async(req, res)=>{
     const {id}=req.params;
 
     try{
-        const users= await Users.findOne({_id:id}).select('-password');
-        return res.status(200).json(users);
+        const user= await Users.findOne({_id:id}).select('-password');
+        const assinedstocks=await assignedStockModel.find({team_id:id});
+        return res.status(200).json({user,assinedstocks});
     }catch(error){  
         // If an error occurs during the process, return a 500 status with the error message
         console.error('Error creating user:', error);

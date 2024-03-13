@@ -1,23 +1,23 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import { H5, Btn } from '../../../AbstractElements'
 import { CardHeader, CardFooter } from 'reactstrap';
 import { TiDeleteOutline } from "react-icons/ti";
-
 import { Data } from './Data';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-
-import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddStock } from '../../../Redux/Slices/stockSlice';
+import { AddStock, UpdateStock, getStockDetail } from '../../../Redux/Slices/stockSlice';
+import { useNavigate } from 'react-router';
+import shallowCopyWithExclusions from '../../../utils/shallowCopyWithExclusions ';
+
 
 const BasicFormControlClass = () => {
-    const navigate = useNavigate();
+    const dispatch=useDispatch();
+    const {loading,selectedStock}=useSelector(state=>state.stock);
     const [dynamicFields, setDynamicFields] = useState([
     ])
-    const dispatch=useDispatch();
-    const {loading}=useSelector(state=>state.stock);
+
 
     const handleAddMoreField = () => {
         setDynamicFields([...dynamicFields, {
@@ -25,14 +25,15 @@ const BasicFormControlClass = () => {
             value: ''
         }])
     }
+
     const handleRemoveField = (index) => {
         setDynamicFields(
             dynamicFields.filter((data,field_index)=> {
-                console.log(field_index,index,(field_index!==index));
                 return field_index!==index
             })
         );
     }
+
     const handleOnChange = (e,index) => {
         let data=[...dynamicFields];
         data[index]={...data[index],[e.target.name]:e.target.value}
@@ -46,8 +47,8 @@ const BasicFormControlClass = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            quantity: '',
+            name: selectedStock.name,
+            quantity: selectedStock.quantity,
         },
         validationSchema: validationSchema,
 
@@ -55,12 +56,21 @@ const BasicFormControlClass = () => {
             dynamicFields.forEach((item)=>{ 
                 values[item.name]=item.value
             })
-            
-            setDynamicFields([]);
-            dispatch(AddStock(values));
-            formik.resetForm()
+            await dispatch(UpdateStock({_id:selectedStock._id,...values}));
         },
     });
+
+    useLayoutEffect(()=> {
+        
+        const excludedKeys = ['_id', 'createdAt','__v','name','quantity','updatedAt'];
+        const copiedObj = shallowCopyWithExclusions(selectedStock, excludedKeys); 
+        setDynamicFields(copiedObj)
+
+        return () => {
+            setDynamicFields([]); // Clear the state
+        };
+
+    },[]);
     return (
         <Fragment>
             <Card>
@@ -127,7 +137,7 @@ const BasicFormControlClass = () => {
                         </Row>
                     </CardBody>
                     <CardFooter className="text-end">
-                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Updating...':'Update Inventory'}</button>
+                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Updating...':'Update Stock'}</button>
                         <button className='btn btn-primary mx-1' type='button' onClick={() => formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>

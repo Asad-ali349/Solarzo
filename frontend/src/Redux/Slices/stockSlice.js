@@ -1,5 +1,5 @@
 import {configureStore, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import { DELETE, GET, POST } from '../../api/AXIOS';
+import { DELETE, GET, POST, UPDATE } from '../../api/AXIOS';
 import { toast } from 'react-toastify';
 
 export const AddStock=createAsyncThunk('ADD_STOCK',async (data)=>{
@@ -12,9 +12,38 @@ export const AddStock=createAsyncThunk('ADD_STOCK',async (data)=>{
         throw error;
       }
 });
-export const getStock=createAsyncThunk('GET_STOCK',async (data)=>{
+export const AssignStock=createAsyncThunk('ASSIGN_STOCK',async (data)=>{
+    try {
+        const response = await POST('stock/assign_stock',data);
+        toast.success("Stock Assigned Sucessfully...")
+        return response.data;
+      } catch (error) {
+        toast.error(error)
+        throw error;
+      }
+});
+export const UpdateStock=createAsyncThunk('UPDATE_STOCK',async (data)=>{
+    try {
+        const response = await UPDATE('stock/'+data._id,data);
+        toast.success("Stock updated Sucessfully...")
+        return response.data;
+      } catch (error) {
+        toast.error(error)
+        throw error;
+      }
+});
+export const getStock=createAsyncThunk('GET_STOCK',async ()=>{
     try {
         const response = await GET('stock');
+        return response.data;
+      } catch (error) {
+        toast.error(error)
+        throw error;
+      }
+});
+export const getStockDetail=createAsyncThunk('GET_STOCK_DETAIL',async (id)=>{
+    try {
+        const response = await GET('stock/'+id);
         return response.data;
       } catch (error) {
         toast.error(error)
@@ -38,7 +67,15 @@ const stockSlice=createSlice({
     initialState:{
         loading:false,
         stocks:[],
-        is_deleted:false
+        selectedStock:{
+            name:'',
+            quantity:''
+        },
+    },
+    reducers:{
+        singleStock:(state,action)=>{
+            state.selectedStock=action.payload;
+        }
     },
     
     extraReducers:(builder)=>{
@@ -55,11 +92,32 @@ const stockSlice=createSlice({
             state.loading=true;
         }).addCase(getStock.rejected,(state,action)=>{
             state.loading=false;
+        }).addCase(getStockDetail.fulfilled,(state,action)=>{
+            state.loading=false;
+            state.selectedStock=action.payload;
+        }).addCase(getStockDetail.pending,(state,action)=>{
+            state.loading=true;
+        }).addCase(getStockDetail.rejected,(state,action)=>{
+            state.loading=false;
         }).addCase(deleteStock.fulfilled,(state,action)=>{
             state.loading=false;
         }).addCase(deleteStock.pending,(state,action)=>{
             state.loading=true;
         }).addCase(deleteStock.rejected,(state,action)=>{
+            state.loading=false;
+        }).addCase(UpdateStock.fulfilled,(state,action)=>{
+            state.loading=false;
+            state.selectedStock=action.payload;
+        }).addCase(UpdateStock.pending,(state,action)=>{
+            state.loading=true;
+        }).addCase(UpdateStock.rejected,(state,action)=>{
+            state.loading=false;
+        }).addCase(AssignStock.fulfilled,(state,action)=>{
+            state.loading=false;
+            state.selectedStock=action.payload;
+        }).addCase(AssignStock.pending,(state,action)=>{
+            state.loading=true;
+        }).addCase(AssignStock.rejected,(state,action)=>{
             state.loading=false;
         })
     }

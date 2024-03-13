@@ -28,7 +28,6 @@ const BasicFormControlClass = () => {
     const handleRemoveField = (index) => {
         setDynamicFields(
             dynamicFields.filter((data,field_index)=> {
-                console.log(field_index,index,(field_index!==index));
                 return field_index!==index
             })
         );
@@ -127,7 +126,7 @@ const BasicFormControlClass = () => {
                         </Row>
                     </CardBody>
                     <CardFooter className="text-end">
-                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Adding...':'Add Inventory'}</button>
+                        <button className='btn btn-primary mx-1' type='submit' disabled={loading}>{loading?'Adding...':'Add Stock'}</button>
                         <button className='btn btn-primary mx-1' type='button' onClick={() => formik.resetForm()}>Cancel</button>
                     </CardFooter>
                 </Form>

@@ -7,7 +7,7 @@ export const tableColumns = [
         center: false,
     },
     {
-        name: 'Quantity',
+        name: 'Available Quantity',
         selector: row => row['Quantity'],
         sortable: false,
         center: true,

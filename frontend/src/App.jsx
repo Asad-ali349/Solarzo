@@ -26,50 +26,10 @@ import CustomizerProvider from './_helper/Customizer/CustomizerProvider';
 const App = () => (
   <div className='App'>
     <CustomizerProvider>
-      <FaqProvider>
-        <LearningProvider>
-          <JobSearchProvider>
-            <WishListProvider>
-              <FilterProvider>
-                <CartProvider>
-                  <ProductProvider>
-                    <SearchResultProvider>
-                      <EmailProvider>
-                        <TodoProvider>
-                          <BookmarkProvider>
-                            <TableProvider>
-                              <GalleryProvider>
-                                <TaskProvider>
-                                  <ContactProvider>
-                                    <ChatProvider>
-                                      <ProjectProvider>
-                                        <GoogleChartProvider>
-                                          <ChartjsProvider>
-                                            <ChartistProvider>
-                                              <AnimationThemeProvider>
-                                                <Routers />
-                                              </AnimationThemeProvider>
-                                            </ChartistProvider>
-                                          </ChartjsProvider>
-                                        </GoogleChartProvider>
-                                      </ProjectProvider>
-                                    </ChatProvider>
-                                  </ContactProvider>
-                                </TaskProvider>
-                              </GalleryProvider>
-                            </TableProvider>
-                          </BookmarkProvider>
-                        </TodoProvider>
-                      </EmailProvider>
-                    </SearchResultProvider>
-                  </ProductProvider>
-                </CartProvider>
-              </FilterProvider>
-            </WishListProvider>
-          </JobSearchProvider>
-        </LearningProvider>
-      </FaqProvider>
-    </CustomizerProvider>
+      <AnimationThemeProvider>
+        <Routers />
+      </AnimationThemeProvider>
+    </CustomizerProvider>                                  
   </div>
 );
 

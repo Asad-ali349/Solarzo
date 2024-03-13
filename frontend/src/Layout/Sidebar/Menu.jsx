@@ -5,7 +5,6 @@ export const MENUITEMS = [
     Items: [
          { path: '/dashboard', icon: "icofont-home", id:'dashboard',title: "Dashboard", type: "link" },
          { path: '/stock', icon: "icofont-notepad", id:'stock',title: "Stocks", type: "link" },
-         { path: '/inventory', icon: "icofont-box", id:'inventory',title: "Inventory", type: "link" },
     ],
   },
     {
@@ -19,6 +18,4 @@ export const MENUITEMS = [
     
     ],
   },
-
-
 ];

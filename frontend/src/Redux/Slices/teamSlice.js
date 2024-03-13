@@ -12,9 +12,18 @@ export const AddTeam=createAsyncThunk('ADD_TEAM',async (data)=>{
         throw error;
       }
 });
-export const getTeam=createAsyncThunk('GET_TEAM',async (data)=>{
+export const getTeam=createAsyncThunk('GET_TEAM',async ()=>{
     try {
         const response = await GET('user');
+        return response.data;
+      } catch (error) {
+        toast.error(error)
+        throw error;
+      }
+});
+export const getTeamDetail=createAsyncThunk('GET_TEAM_DETAIL',async (id)=>{
+    try {
+        const response = await GET('user/'+id);
         return response.data;
       } catch (error) {
         toast.error(error)
@@ -38,7 +47,12 @@ const teamSlice=createSlice({
     initialState:{
         loading:false,
         teams:[],
-        is_deleted:false
+        is_deleted:false,
+        team_member:{
+            user:{},
+            assinedstocks:[]
+
+        }
     },
     
     extraReducers:(builder)=>{
@@ -60,6 +74,13 @@ const teamSlice=createSlice({
         }).addCase(deleteTeam.pending,(state,action)=>{
             state.loading=true;
         }).addCase(deleteTeam.rejected,(state,action)=>{
+            state.loading=false;
+        }).addCase(getTeamDetail.fulfilled,(state,action)=>{
+            state.loading=false;
+            state.team_member=action.payload;
+        }).addCase(getTeamDetail.pending,(state,action)=>{
+            state.loading=true;
+        }).addCase(getTeamDetail.rejected,(state,action)=>{
             state.loading=false;
         })
     }

@@ -63,7 +63,7 @@ const DataTableComponent = () => {
                     <MdAssignmentAdd style={{ ...styles.actionStyle }} onClick={() => openModal(item)}/>
                     <CiViewList
                         style={{ ...styles.actionStyle, ...styles.view }} // Merge styles using spread operator
-                        onClick={() => openModal(item)}
+                        onClick={() => navigate('/stock/detail/'+item._id)}
                     />
                     <FaRegEdit
                         style={{ ...styles.actionStyle, ...styles.edit }} // Merge styles using spread operator

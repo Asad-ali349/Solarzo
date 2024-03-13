@@ -68,8 +68,8 @@ const stockSlice=createSlice({
         loading:false,
         stocks:[],
         selectedStock:{
-            name:'',
-            quantity:''
+            stock:{},
+            summary:[]
         },
     },
     reducers:{
@@ -114,7 +114,6 @@ const stockSlice=createSlice({
             state.loading=false;
         }).addCase(AssignStock.fulfilled,(state,action)=>{
             state.loading=false;
-            state.selectedStock=action.payload;
         }).addCase(AssignStock.pending,(state,action)=>{
             state.loading=true;
         }).addCase(AssignStock.rejected,(state,action)=>{

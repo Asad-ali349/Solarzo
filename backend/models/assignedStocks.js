@@ -4,10 +4,12 @@ const assignedStockSchema= mongoose.Schema({
     stock_id:{
         required:true,
         type:mongoose.SchemaTypes.ObjectId,
+        ref:'Stock'
     },
     team_id:{ 
         required:true,
-        type:mongoose.SchemaTypes.ObjectId
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:'Users'
     },
     quantity:{ 
         required:true,

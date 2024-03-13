@@ -4,7 +4,7 @@ import { tableColumns } from './Defaultdata';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { Spinner } from 'reactstrap';
-
+import { CiViewList } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { deleteTeam, getTeam } from '../../../Redux/Slices/teamSlice';
 
@@ -20,10 +20,14 @@ const DataTableComponent = () => {
         Email:item.email,
         Phone: item.phone,
         Address: item.street+item.city??','+item.city,
-        Action: <MdDelete style={{fontSize:'20px',color:'red',cursor:'pointer'}}  onClick={async ()=>{
+        Action: 
+        <>
+        <CiViewList style={{fontSize:'20px',color:'green',cursor:'pointer'}} onClick={()=>navigate('/user/'+item._id)}/>
+        <MdDelete style={{fontSize:'20px',color:'red',cursor:'pointer'}}  onClick={async ()=>{
             await dispatch(deleteTeam(item._id)) 
             await dispatch(getTeam())
         }}/>
+        </>
     }));
     
     useEffect(()=>{

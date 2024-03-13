@@ -56,7 +56,7 @@ export const getStockDetail=async (req,res)=>{
     const {id}=req.params;
     try {
         const stock=await Stocks.findOne({_id:id});
-        const summary=await assignedStockModel.find({stock_id:id});
+        const summary=await assignedStockModel.find({stock_id:id}).populate('team_id');
         return res.status(200).json({stock,summary});
     } catch (error) {
         console.log('error:'+error);

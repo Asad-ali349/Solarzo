@@ -118,7 +118,7 @@ export const GetUserDetail=async(req, res)=>{
 
     try{
         const user= await Users.findOne({_id:id}).select('-password');
-        const assinedstocks=await assignedStockModel.find({team_id:id});
+        const assinedstocks=await assignedStockModel.find({team_id:id}).populate('stock_id');
         return res.status(200).json({user,assinedstocks});
     }catch(error){  
         // If an error occurs during the process, return a 500 status with the error message

@@ -12,6 +12,7 @@ import UsersProfileContain from '../Components/UsersProfile';
 import Dashboard from '../Components/Dashboard';
 import Users from '../Components/Members/View';
 import AddUser from '../Components/Members/Add';
+import UserDetail from '../Components/Members/Detail';
 
 
 import EditProfile from '../Components/UsersProfile/EditProfile/index.jsx';
@@ -20,6 +21,7 @@ import PageNotFound from '../Auth/PageNotFound/index.jsx';
 import ViewStock from '../Components/stock/ViewStock.js';
 import AddStock from '../Components/stock/Add/AddStock.js';
 import EditStock from '../Components/stock/EditStock';
+import StockDetail from '../Components/stock/StockDetail';
 import ResetPassword from '../Auth/resetPassword/index.jsx';
 
 
@@ -39,8 +41,10 @@ const Routers = () => {
               <Route path={'/stock'} element={<ViewStock/>} />
               <Route path={'/stock/add'} element={<AddStock/>} />
               <Route path={'/stock/edit/'} element={<EditStock/>} />
+              <Route path={'/stock/detail/:id'} element={<StockDetail/>} />
               <Route path={'/users'} element={<Users/>} />
               <Route path={'/users/add'} element={<AddUser/>} />
+              <Route path={'/user/:id'} element={<UserDetail/>} />
               <Route path={'/profile'} element={<UsersProfileContain/>} />
               <Route path={'/edit_profile'} element={<EditProfile/>} />
               <Route path={'/change_password'} element={<ChangePassword/>} />
